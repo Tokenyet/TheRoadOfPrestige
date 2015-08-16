@@ -30,6 +30,12 @@
     <ClCompile Include="..\SpriteBehavior\SpriteAnimator.cpp">
       <Filter>CustomClasses\SpriteBehavior</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\GameMainScene.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GameMainLayer.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -43,6 +49,12 @@
     </ClInclude>
     <ClInclude Include="..\SpriteBehavior\SpriteAnimator.h">
       <Filter>CustomClasses\SpriteBehavior</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameMainScene.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameMainLayer.h">
+      <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
