@@ -223,3 +223,6 @@ proj.wp8-xaml/
 
 # Cocos2dx ignore core 3.5
 cocos2d/
+
+#ignore 
+The_road_of_prestige-build/

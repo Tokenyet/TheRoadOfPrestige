@@ -8,7 +8,7 @@ SpriteAnimator::SpriteAnimator(const char* path)
 	if (CCFileUtils::getInstance()->isFileExist(path))
 		_cache->addSpriteFramesWithFile(path);
 	else
-		throw ERROR_FILE_EXISTS;
+        throw "FILE NOT EXIST";
 }
 
 SpriteAnimator* SpriteAnimator:: Create(const char* path)

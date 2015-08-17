@@ -2,10 +2,18 @@
 #define __GAMEMAIN_LAYER_H__
 
 #include "cocos2d.h"
-#include "SpriteBehavior\SpriteAnimator.h"
 
+#include "ui/CocosGUI.h"
+
+
+#ifdef _WIN32
+#include "SpriteBehavior\SpriteAnimator.h"
+#elif __linux__
+#include  "SpriteAnimator.h"
+#endif
 
 using namespace cocos2d;
+using namespace cocos2d::ui;
 
 class GameMainLayer : public cocos2d::Layer
 {
@@ -22,11 +30,15 @@ public:
 
 
 protected:
-		Sprite *bats;
-		Animation *animation;
+        Sprite* bats;
+        SpriteAnimator* attackAnimator;
+        Animation* animation;
 		// keyboard
 		void onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event);
 		void onKeyReleased(EventKeyboard::KeyCode keyCode, Event* event);
+
+private:
+        void SetMenu();
 };
 
 #endif // __GAMEMAIN_LAYER_H__

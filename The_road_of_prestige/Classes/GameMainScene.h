@@ -2,8 +2,15 @@
 #define __GAMEMAIN_SCENE_H__
 
 #include "cocos2d.h"
-#include "SpriteBehavior\SpriteAnimator.h"
 #include "GameMainLayer.h"
+
+#ifdef _WIN32
+#include "SpriteBehavior\SpriteAnimator.h"
+#elif __linux__
+#include  "SpriteAnimator.h"
+#endif
+
+
 
 
 using namespace cocos2d;

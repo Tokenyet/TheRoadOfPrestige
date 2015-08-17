@@ -1,6 +1,5 @@
 #include "GameMainLayer.h"
 
-
 // on "init" you need to initialize your instance
 bool GameMainLayer::init()
 {
@@ -13,50 +12,37 @@ bool GameMainLayer::init()
     
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
-
+    SetMenu();
     /////////////////////////////
     // 2. add a menu item with "X" image, which is clicked to quit the program
     //    you may modify it.
 
     // add a "close" icon to exit the progress. it's an autorelease object
-    auto closeItem = MenuItemImage::create(
+    /*auto closeItem = MenuItemImage::create(
                                            "CloseNormal.png",
                                            "CloseSelected.png",
                                            CC_CALLBACK_1(GameMainLayer::menuCloseCallback, this));
-    
+
 	closeItem->setPosition(Vec2(origin.x + visibleSize.width - closeItem->getContentSize().width/2 ,
-                                origin.y + closeItem->getContentSize().height/2));
+                                origin.y + closeItem->getContentSize().height/2));*/
 
     // create menu, it's an autorelease object
-    auto menu = Menu::create(closeItem, NULL);
+    /*auto menu = Menu::create(closeItem, NULL);
     menu->setPosition(Vec2::ZERO);
-    this->addChild(menu, 1);
+    this->addChild(menu, 1);*/
 
     /////////////////////////////
     // 3. add your codes below...
 	// load the Sprite Sheet
-	auto spritecache = SpriteFrameCache::getInstance();
+    /*auto spritecache = SpriteFrameCache::getInstance();
 	// the .plist file can be generated with any of the tools mentioned below
-	spritecache->addSpriteFramesWithFile("human/bat.plist");
 
-	Vector<SpriteFrame*>attackFrames;
-	attackFrames.reserve(6);
-	attackFrames.pushBack(spritecache->getSpriteFrameByName("attack0.png"));
-	attackFrames.pushBack(spritecache->getSpriteFrameByName("attack1.png"));
-	attackFrames.pushBack(spritecache->getSpriteFrameByName("attack2.png"));
-	attackFrames.pushBack(spritecache->getSpriteFrameByName("attack3.png"));
-	attackFrames.pushBack(spritecache->getSpriteFrameByName("attack4.png"));
-	attackFrames.pushBack(spritecache->getSpriteFrameByName("attack5.png"));
-
-	animation = Animation::createWithSpriteFrames(attackFrames, 0.3);
-
-	SpriteAnimator attackAnimator("human/bat.plist");
-	attackAnimator.SetAnimation("attack", 6, 0.3);
-	auto tempAnimate = attackAnimator.GetSpecifiedAnimate("attack");
+    attackAnimator = SpriteAnimator::Create("human/bat.plist");
+    attackAnimator->SetAnimation("attack", 6, 0.3);
+    auto tempAnimate = attackAnimator->GetSpecifiedAnimate("attack");
 
 
 	bats = Sprite::create();
-	//bats->runAction(Repeat::create(Animate::create(animation),10));
 	bats->runAction(Repeat::create(tempAnimate,10));
 
 	auto listener = EventListenerKeyboard::create();
@@ -81,42 +67,61 @@ bool GameMainLayer::init()
 
     // position the sprite on the center of the screen
     sprite->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
-	//bats->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
+    bats->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
 	
     // add the sprite as a child to this layer
     this->addChild(sprite, 0);
-	//this->addChild(bats, 0);
+    this->addChild(bats, 0);*/
     
     return true;
+}
+
+void GameMainLayer::SetMenu()
+{
+    Size visibleSize = Director::getInstance()->getVisibleSize();
+    Vec2 origin = Director::getInstance()->getVisibleOrigin();
+    Vector<MenuItem*> menuItems;
+    auto firstLabel = Label::create("Start","arial",18.0f);
+    //firstLabel->setTextColor(Color4B((GLubyte)255,(GLubyte)255,(GLubyte)255,(GLubyte)255));
+    auto firstItem = MenuItemLabel::create(firstLabel,CC_CALLBACK_1(GameMainLayer::menuCloseCallback, this));
+
+
+    SpriteFrameCache::sharedSpriteFrameCache()->addSpriteFramesWithFile("buttons/game_buttons.plist");
+    //cache->addSpriteFramesWithFile("buttons/game_buttons.plist");
+    auto secondButton =  MenuItemSprite::create(Sprite::createWithSpriteFrameName("button_play.png"),NULL,NULL, CC_CALLBACK_1(GameMainLayer::menuCloseCallback, this));
+    /*auto secondButton =  Button::create("button_play.png","button_play.png","button_play.png");
+    secondButton->addTouchEventListener(CC_CALLBACK_1(GameMainLayer::menuCloseCallback, this));*/
+    //secondButton->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
+    SpriteFrameCache::sharedSpriteFrameCache()->removeSpriteFramesFromFile("buttons/game_buttons.plist");
+    firstItem->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
+    secondButton->setPosition(firstItem->getPositionX()  ,firstItem->getPositionY() + firstItem->getContentSize().height + 50);
+
+    menuItems.pushBack(firstItem);
+    menuItems.pushBack(secondButton);
+
+
+    auto menu = Menu::createWithArray(menuItems);
+    menu->setPosition(Vec2::ZERO);
+    this->addChild(menu,1);
 }
 
 
 // Implementation of the keyboard event callback function prototype
 void GameMainLayer::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
 {
-	/*if (keyCode == EventKeyboard::KeyCode::KEY_SPACE)
+    if (keyCode == EventKeyboard::KeyCode::KEY_SPACE)
 		if (bats->numberOfRunningActions() == 0)
 		{
-			auto spritecache = SpriteFrameCache::getInstance();
-			spritecache->addSpriteFramesWithFile("human/bat.plist");
-			Vector<SpriteFrame*>attackFrames;
-			attackFrames.reserve(6);
-			attackFrames.pushBack(spritecache->getSpriteFrameByName("attack0.png"));
-			attackFrames.pushBack(spritecache->getSpriteFrameByName("attack1.png"));
-			attackFrames.pushBack(spritecache->getSpriteFrameByName("attack2.png"));
-			attackFrames.pushBack(spritecache->getSpriteFrameByName("attack3.png"));
-			attackFrames.pushBack(spritecache->getSpriteFrameByName("attack4.png"));
-			attackFrames.pushBack(spritecache->getSpriteFrameByName("attack5.png"));
-			//animation = Animation::createWithSpriteFrames(attackFrames, 0.3);
-			auto temp = Animate::create(animation);
+            auto temp =  attackAnimator->GetSpecifiedAnimate("attack");
 			bats->runAction(temp);
-		}*/
+        }
 }
 
 void GameMainLayer::onKeyReleased(EventKeyboard::KeyCode keyCode, Event* event)
 {
-	/*if (keyCode == EventKeyboard::KeyCode::KEY_SPACE)
-		bats->stopAllActions();*/
+    if (keyCode == EventKeyboard::KeyCode::KEY_SPACE)
+        if(auto temp =  attackAnimator->GetSpecifiedAnimate("attack")->isDone())
+            bats->stopAllActions();
 }
 
 void GameMainLayer::menuCloseCallback(Ref* pSender)

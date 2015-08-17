@@ -30,7 +30,7 @@ public:
 	SpriteAnimator(const char* path);
 	~SpriteAnimator();
 	// Create pointer with class
-	SpriteAnimator* Create(const char* path);
+    static SpriteAnimator* Create(const char* path);
 	// name  : png name in .plist
 	// amount: how many .png with name
 	// delay : time to change frame

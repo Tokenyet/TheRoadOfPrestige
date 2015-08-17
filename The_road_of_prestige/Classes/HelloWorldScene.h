@@ -2,7 +2,12 @@
 #define __HELLOWORLD_SCENE_H__
 
 #include "cocos2d.h"
+
+#ifdef _WIN32
 #include "SpriteBehavior\SpriteAnimator.h"
+#elif __linux__
+#include  "SpriteAnimator.h"
+#endif
 
 
 using namespace cocos2d;
